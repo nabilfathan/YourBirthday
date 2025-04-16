@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Cindy!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <style>
+    body {
+        margin: 0;
+    padding: 5px;
+    font-family: 'Comic Sans MS', cursive;
+    background: linear-gradient(to bottom right, #fff0f5, #ffe4ec);
+    color: #ff66a3;
+    overflow-x: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #mainContent {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+  }
+
+  .content-wrapper {
+    width: 100%;
+    max-width: 800px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  #quizSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    height: auto;
+    margin-top: 20px;
+  }
+
+  #messageBox {
+    padding: 30px;
+    margin: 40px auto;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 700px;
+    color: #444;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    text-align: justify;
+    background: #fff;
+    padding: 5px;
+    }
+    h1 {
+      font-size: 3em;
+      animation: popin 1.5s ease-in-out, shimmer 3s infinite;
+      background: linear-gradient(90deg, #ff69b4, #ffc0cb, #ff69b4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% auto;
+    }
+    @keyframes shimmer {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+    #welcomeScreen {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100vh;
+      animation: fadeIn 2s ease-in-out;
+    }
+    .envelope {
+      width: 150px;
+      height: 100px;
+      background: #fff;
+      border: 2px solid #ff66a3;
+      position: relative;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.8s ease-in-out;
+      animation: zoomin 1.5s ease forwards;
+    }
+    .envelope::before, .envelope::after {
+      content: '';
+      position: absolute;
+      border: 75px solid transparent;
+      top: -75px;
+      left: 0;
+    }
+    .envelope::before {
+      border-bottom: 75px solid #fff;
+    }
+    .envelope::after {
+      border-bottom: 75px solid #ff66a3;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .envelope.open::after {
+      opacity: 1;
+    }
+    @keyframes zoomin {
+      from { transform: scale(0); }
+      to { transform: scale(1); }
+    }
+    #messageBox, #questionSection, #quizSection, #mainContent {
+      animation: fadeInUp 1s ease-in-out;
+    }
+    button {
+      background-color: #ff99cc;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border-radius: 25px;
+      color: white;
+      cursor: pointer;
+      margin-top: 30px;
+      transition: background 0.3s, transform 0.2s;
+    }
+    button:hover {
+      background-color: #ff66a3;
+      transform: scale(1.05);
+    }
+    .options button {
+      margin: 10px;
+      background-color: #ffb3d9;
+    }
+    .options button.correct {
+      background-color: #8bc34a !important;
+      color: white;
+    }
+    .options button.incorrect {
+      background-color: #f44336 !important;
+      color: white;
+    }
+    @keyframes popin {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    #loveTransition {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: pink;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      animation: fadeOut 2s ease forwards;
+      animation-delay: 1s;
+    }
+    .love-icon {
+      font-size: 2rem;
+      color: white;
+      margin: 10px;
+      animation: pop 1s ease forwards;
+    }
+    @keyframes pop {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+    #quizSection {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="welcomeScreen">
+    <div class="content-wrapper">
+      <h1>Hai Cindy! 🎀</h1>
+      <div class="envelope" id="envelope"></div>
+    </div>
+  </div>
+
+  <div id="loveTransition" style="display: none;"></div>
+
+  <div id="mainContent" style="display: none;">
+    <div class="content-wrapper">
+      <h1>Hai Cindy sayang! ✨</h1>
+      <p id="greetingText">Kabar kamu gimana hari ini? 😊</p>
+      <div id="quizSection" style="display: none;">
+        <p><strong>Teka-Teki:</strong> Siapa yang paling ganteng dipilihan ini?</p>
+        <p>Jawab dengan jujur ya cantik😊</p>
+        <div class="options">
+        <button onclick="checkAnswer(this, false)">Iko uwais</button>
+          <button onclick="checkAnswer(this, true)">bg iyam</button>
+        <button onclick="checkAnswer(this, false)">Tom Cruise</button>
+        </div>
+        <p id="feedback"></p>
+        <button id="nextButton" style="display:none;" onclick="showMessage()">Lihat Pesan Spesial 💌</button>
+      </div>
+
+      <button id="startQuizButton" onclick="askQuestion()">Aku baik, lanjut yuk! 💕</button>
+
+      <div id="messageBox" style="display: none; text-align: justify; background: #fff; margin: 4px auto; padding: 30px; border-radius: 20px; width: 80%; color: #444; box-shadow: 0 0 20px rgba(0,0,0,0.1);">
+        <h1 style="text-align: center; font-family: 'Pacifico', cursive;">🎉 Happy Birthday, Cindy 🎉</h1>
+        <p>Happy Birthday, Dudutt!! </p>
+        <p>Kamu adalah makhluk paling indah yang pernah Tuhan titipkan ke hidup aku. 🌸</p>
+        <p>Semoga di umurmu yang baru, semua harapanmu terkabul, langkahmu selalu dimudahkan, dan kamu diberi kesehatan,
+          kebahagiaan,serta kekuatan buat jadi dokter yang sukses dan disenangi banyak orang. 💖</p>
+        <p>Aku bangga sama kamu, aku percaya kamu bisa lewatin semua hal, walau kadang kamu ngeluh capek, sedih, dan jenuh.
+          Tapi ingat ya, kamu gak pernah sendirian aku selalu di sini, Dutt. Aku bakal temani kamu terus, sampai nanti kita
+          wujudin semua mimpi kita. ✨</p>
+        <p>Sehat-sehat kanduang🥰.</p>
+        <p style="text-align: right; font-style: italic;">- Love you, selalu. 💌</p>
+      </div>
+    </div>
+  </div>
+
+  <audio id="birthdaySong" autoplay loop>
+    <source src="https://open.spotify.com/track/4s8W4gutSQnFIDNThqUPSI?si=ea9233132e184c66" type="audio/mp3">
+    Browser kamu tidak mendukung audio.
+  </audio>
+
+  <audio id="popSound">
+    <source src="https://www.fesliyanstudios.com/play-mp3/387" type="audio/mpeg">
+  </audio>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById("envelope").addEventListener("click", openEnvelope);
+    });
+
+    function openEnvelope() {
+      const envelope = document.querySelector('.envelope');
+      envelope.classList.add('open');
+      const loveContainer = document.getElementById("loveTransition");
+      loveContainer.innerHTML = '';
+      loveContainer.style.display = "flex";
+
+      for (let i = 0; i < 500; i++) {
+        const love = document.createElement("div");
+        love.className = "love-icon";
+        love.textContent = "❤️";
+        loveContainer.appendChild(love);
+      }
+
+      setTimeout(() => {
+        loveContainer.style.display = "none";
+        document.getElementById("welcomeScreen").style.display = "none";
+        document.getElementById("mainContent").style.display = "flex";
+      }, 2000);
+    }
+
+    function askQuestion() {
+      document.getElementById("startQuizButton").style.display = 'none';
+      document.getElementById("quizSection").style.display = "flex";
+      document.getElementById("greetingText").style.display = "none";
+
+    }
+
+    function checkAnswer(button, isCorrect) {
+      const buttons = document.querySelectorAll(".options button");
+      buttons.forEach(btn => btn.classList.remove("correct", "incorrect"));
+
+      if (isCorrect) {
+        button.classList.add("correct");
+        document.getElementById("feedback").innerText = "Betul sekali! Cindy memang yang paling manis 💕";
+        document.getElementById("nextButton").style.display = "inline-block";
+        buttons.forEach(btn => btn.disabled = true);
+      } else {
+        button.classList.add("incorrect");
+        document.getElementById("feedback").innerText = "Ups, salah. Coba lagi ya! 😊";
+      }
+    }
+
+    function showMessage() {
+      document.getElementById("quizSection").style.display = "none";
+      document.getElementById("messageBox").style.display = "block";
+      document.getElementById("popSound").play();
+      confetti({
+        particleCount: 200,
+        spread: 100,
+        origin: { y: 0.6 }
+      });
+      function playMusic() {
+    const audio = document.getElementById("birthdaySong");
+    audio.muted = false;
+    audio.play();
+      }
+    }
+  </script>
+</body>
+</html>
