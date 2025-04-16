@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday Cindy!</title>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <style>
     body {
@@ -255,26 +254,28 @@
 
     function openEnvelope() {
   const envelope = document.querySelector('.envelope');
-  envelope.classList.add('oconst loveContainer = document.getElementById("loveTransitio n");
+  envelope.classList.add('open');
+  const loveContainer = document.getElementById("loveTransition");
   loveContainer.innerHTML = '';
   loveContainer.style.display = "flex";
 
   for (let i = 0; i < 500; i++) {
-    const love       document.createElement("div");
-    love.className = "l      e-icon";
-    love.textContent =       ️";
+    const love = document.createElement("div");
+    love.className = "love-icon";
+    love.textContent = "❤️";
     loveContainer.appendChild(love);
   }
 
-  // ✅ Pastikan       sik diputar setelah klik amplop        const bgMusic = document.getElementById      birthdaySong");
-  bgMusic.play()        ch((e) => {
-    console.warn("Autoplay diblo        browser:", e);
+  // ✅ Pastikan musik diputar setelah klik amplop
+  const bgMusic = document.getElementById("birthdaySong");
+  bgMusic.play().catch((e) => {
+    console.warn("Autoplay diblokir browser:", e);
   });
 
-  setT        ut(() => {
-    loveContai        style.display = "none";
-    docum      t.get      ementById("welcomeScreen").style.display = "none"      
-    document.getElementById("mainContent").style.display       "flex";
+  setTimeout(() => {
+    loveContainer.style.display = "none";
+    document.getElementById("welcomeScreen").style.display = "none";
+    document.getElementById("mainContent").style.display = "flex";
   }, 2000);
 }
 
